@@ -303,6 +303,8 @@
     </div>
 
     <script>
+        const API_BASE_URL = window.location.origin;
+        
         const uploadArea = document.getElementById('uploadArea');
         const fileInput = document.getElementById('fileInput');
         const fileInfo = document.getElementById('fileInfo');
@@ -397,7 +399,7 @@
             showStatus('正在上传文件...', 'processing');
 
             try {
-                const response = await fetch('http://localhost:5001/upload', {
+                const response = await fetch(`${API_BASE_URL}/upload`, {
                     method: 'POST',
                     body: formData
                 });
@@ -422,7 +424,7 @@
             if (!currentTaskId) return;
 
             try {
-                const response = await fetch(`http://localhost:5001/status/${currentTaskId}`);
+                const response = await fetch(`${API_BASE_URL}/status/${currentTaskId}`);
                 const data = await response.json();
 
                 if (data.status === 'processing') {
@@ -447,7 +449,7 @@
             if (!currentTaskId) return;
 
             try {
-                const response = await fetch(`http://localhost:5001/download/${currentTaskId}`);
+                const response = await fetch(`${API_BASE_URL}/download/${currentTaskId}`);
                 
                 if (response.ok) {
                     const blob = await response.blob();
